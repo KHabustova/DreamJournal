@@ -1,6 +1,6 @@
-package data.repositaries;
+package dreamjournal.models.repositaries;
 
-import data.entities.EntryEntity;
+import dreamjournal.models.entities.EntryEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

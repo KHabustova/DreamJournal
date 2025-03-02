@@ -1,18 +1,16 @@
-package data.entities;
+package dreamjournal.models.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import dreamjournal.models.Mood;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
+@Entity
 public class EntryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private String title;
@@ -21,18 +19,18 @@ public class EntryEntity {
     private String body;
 
     @Column(nullable = false)
-    private String mood;
+    private Mood mood;
 
     @Column(nullable = false)
     private LocalDate creationDate;
 
     //Getters and Setters
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -44,11 +42,11 @@ public class EntryEntity {
         this.title = title;
     }
 
-    public String getMood() {
+    public Mood getMood() {
         return mood;
     }
 
-    public void setMood(String mood) {
+    public void setMood(Mood mood) {
         this.mood = mood;
     }
 
