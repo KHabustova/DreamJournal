@@ -1,5 +1,6 @@
 package dreamjournal.services;
 
+import dreamjournal.Exceptions.EntryNotFoundException;
 import dreamjournal.models.DTO.EntryDTO;
 import dreamjournal.models.DTO.EntryMapper;
 import dreamjournal.models.entities.EntryEntity;
@@ -54,7 +55,7 @@ public class EntryServiceImplementation implements EntryService {
     }
 
     private EntryEntity findEntry(long id) {
-        return entryRepository.findById(id).orElseThrow();
+        return entryRepository.findById(id).orElseThrow(()->new EntryNotFoundException("Entry with ID of " + id + " not found. Process aborted."));
     }
 
 }
