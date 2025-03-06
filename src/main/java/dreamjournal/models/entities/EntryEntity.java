@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class EntryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
@@ -18,6 +18,7 @@ public class EntryEntity {
     @Column(nullable = false)
     private String body;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Mood mood;
 

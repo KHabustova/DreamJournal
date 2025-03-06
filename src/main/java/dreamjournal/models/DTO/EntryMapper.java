@@ -4,7 +4,7 @@ import dreamjournal.models.entities.EntryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EntryMapper {
     EntryEntity toEntry (EntryDTO entryDTO);
     EntryDTO toDTO (EntryEntity entryDTO);

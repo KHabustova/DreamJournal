@@ -36,3 +36,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Database File ###
+database/
+*.db
+*.mv.db
+*.h2.db
+*.sqlite
+*.sqlite3
