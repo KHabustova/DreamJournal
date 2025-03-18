@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import APIRequestsHandler from "../services/APIRequestsHandler";
 import NewEntryButton from "./NewEntryButton";
+import { Listbox } from '@headlessui/react';
+import { Link } from "react-router-dom";
 
 function EntryList(){
     const [entries, setEntries] = useState([]);
-
-
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect (() => {
         async function loadEntries (){
@@ -14,14 +15,26 @@ function EntryList(){
                 setEntries(fetchedEntries);
             } catch (error) {
                 console.error("Failed to fetch the entries!", error);
+            } finally {
+                setIsLoading(false);
             }
         }
         loadEntries();
     }, []);
 
-    if (!entries || entries.length === 0) {
-        return <div>Loading...</div>; 
+    if (isLoading) {
+        return <div>Is Loading...</div>; 
       }
+
+
+      if (entries.length === 0) {
+        return (
+            <div className="no-entries-state">
+                <p>No entries yet! Add your first one.</p>
+                <NewEntryButton />
+            </div>
+        );
+    }
 
     return (
         <div className="p-4 outline-2 rounded-xl w-full">
