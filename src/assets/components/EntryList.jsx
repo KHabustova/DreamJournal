@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import APIRequestsHandler from "../services/APIRequestsHandler";
 import NewEntryButton from "./NewEntryButton";
-import { Listbox } from '@headlessui/react';
 import { Link } from "react-router-dom";
 
 function EntryList(){
@@ -48,7 +47,8 @@ function EntryList(){
                 <h2  className=" mb-2 text-2xl">Entries</h2>
                 <ul>
                         {entries.map((entry) => (
-                            <li  className="cursor-pointer text-violet-500 hover:underline border rounded-sm outline-2" key={entry.id}>{entry.title}</li>
+                            <Link  to={`/entry/${entry.id}`}  
+                            className="cursor-pointer text-violet-500 hover:underline border rounded-sm outline-2" key={entry.id}>{entry.title}</Link>
                         )
 
                         )}

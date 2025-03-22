@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const API_URL = "http://localhost:8009/";
+const API_URL = "http://localhost:8009";
 const MOOD_URL = "http://localhost:8009/api/moods";
 
 const APIRequestsHandler = {
@@ -38,7 +38,7 @@ const APIRequestsHandler = {
 
     createEntry: async(entry) => {
         try {
-            return axios.post(API_URL, entry);
+            return await axios.post(`${API_URL}/new`, entry);
         } catch(error) {
             console.log(error);
             throw error;
