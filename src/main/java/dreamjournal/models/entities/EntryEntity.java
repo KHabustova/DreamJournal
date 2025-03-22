@@ -19,7 +19,7 @@ public class EntryEntity {
     private String body;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private Mood mood;
 
     @Column(nullable = false)
