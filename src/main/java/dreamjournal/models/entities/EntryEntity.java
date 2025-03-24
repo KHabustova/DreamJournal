@@ -2,6 +2,7 @@ package dreamjournal.models.entities;
 
 import dreamjournal.models.Mood;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
@@ -22,6 +23,7 @@ public class EntryEntity {
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private Mood mood;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private LocalDate creationDate;
 

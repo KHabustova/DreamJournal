@@ -52,10 +52,11 @@ public class EntryController {
     @PutMapping("{id}")
     public ResponseEntity updateEntry(@PathVariable Long id, @RequestBody EntryDTO entry){
         EntryDTO currentEntry = entryService.getByID(id);
-        currentEntry.setMood(entry.getMood());
-        currentEntry.setBody(entry.getBody());
-        currentEntry.setTitle(entry.getTitle());
-        return ResponseEntity.ok("Sucesfully updated!");
+            currentEntry.setMood(entry.getMood());
+            currentEntry.setBody(entry.getBody());
+            currentEntry.setTitle(entry.getTitle());
+        entryService.editEntry(currentEntry);
+        return ResponseEntity.ok("Successfully updated!");
     }
 
 
