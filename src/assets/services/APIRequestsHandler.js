@@ -45,12 +45,25 @@ const APIRequestsHandler = {
         }
     },
 
-    deleteEntry: async() => {
-
+    deleteEntry: async(id) => {
+        try{
+            const response = await axios.delete(`${API_URL}/${id}`);
+            return response.data;
+        } catch(error) {
+            console.log(error);
+            throw error
+        }
     },
 
-    updateEntry: async() => {
-
+    updateEntry: async(id, updatedEntry) => {
+        try{
+            const response = await axios.put(`${API_URL}/${id}`, updatedEntry, 
+                 {headers: { "Content-Type": "application/json" }})
+            return response.data;
+        }catch(error) {
+            console.log(error);
+            throw error;
+        }
     }
 
 

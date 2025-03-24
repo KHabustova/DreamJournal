@@ -21,6 +21,17 @@ function EntryList(){
         loadEntries();
     }, []);
 
+    const deleteEntry = async (productID) => {
+        try {
+            await APIRequestsHandler.deleteEntry(productID);
+            setEntries(prevEntries => prevEntries.filter(p => p.id !== productID));
+
+        } catch(error) {
+            console.log("Error deleting entry", error);
+
+        }
+    }
+
     if (isLoading) {
         return <div>Is Loading...</div>; 
       }
@@ -47,8 +58,13 @@ function EntryList(){
                 <h2  className=" mb-2 text-2xl">Entries</h2>
                 <ul>
                         {entries.map((entry) => (
+                            <div key={entry.id}>
                             <Link  to={`/entry/${entry.id}`}  
-                            className="cursor-pointer text-violet-500 hover:underline border rounded-sm outline-2" key={entry.id}>{entry.title}</Link>
+                            className="cursor-pointer text-violet-500 hover:underline border rounded-sm outline-2" >{entry.title}</Link>
+                            <Link to={`/entry/${entry.id}/edit` } className="ml-2 text-blue-500">Edit</Link>
+                            <span onClick={() => deleteEntry(entry.id)}   className="ml-2 text-red-500 cursor-pointer">Delete</span>
+                            
+                            </div>
                         )
 
                         )}
