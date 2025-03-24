@@ -13,6 +13,7 @@ function NewEntryPage(){
     let [creationDate, setCreationDate] = useState();
     const navigate = useNavigate();
 
+    
     const saveEntry = (e) => {
         e.preventDefault();
         let currentDate = format(new Date(), 'dd.MM.yyyy');
