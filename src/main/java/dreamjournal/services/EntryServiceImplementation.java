@@ -6,9 +6,11 @@ import dreamjournal.models.DTO.EntryMapper;
 import dreamjournal.models.entities.EntryEntity;
 import dreamjournal.models.repositaries.EntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -30,8 +32,10 @@ public class EntryServiceImplementation implements EntryService {
 
     @Override
     public List<EntryDTO> getAll() {
-        return StreamSupport.stream(entryRepository.findAll().spliterator(), false)
-                .map(i -> entryMapper.toDTO(i)).toList();
+        return entryRepository.findAll(Sort.by(Sort.Direction.DESC, "id"))
+                .stream()
+                .map(i -> entryMapper.toDTO(i))
+                .collect(Collectors.toList());
     }
 
     @Override
