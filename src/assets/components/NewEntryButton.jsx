@@ -1,12 +1,13 @@
 import React from "react";
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { CiCirclePlus } from "react-icons/ci";
 
 function NewEntryButton(){
     return (
-        <div>
-            <Link to="/new" className="cursor-pointer hover:bg-violet-200 bg-violet-400 rounded-lg no-underline p-1 text-white"> New </Link>
-        </div>
+            <Link to="/new" className="flex items-center space-x-2 bg-violet-400 hover:bg-violet-500 text-white p-2 rounded-lg cursor-pointer ">
+                <CiCirclePlus className="text-xl"/>
+                <span>Add</span>
+             </Link>
     )
 }
 

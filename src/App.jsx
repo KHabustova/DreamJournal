@@ -1,4 +1,3 @@
-import './App.css'
 import EntryList from './assets/components/EntryList'
 import { Routes, Route } from 'react-router-dom'; 
 import NewEntryPage from './assets/components/NewEntryPage';

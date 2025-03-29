@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 function ReturnButton(){
     return (
         <div>
-            <Link to="/" className="outline p-5">Back
+            <Link to="/" className="outline p-2">Back
             </Link>
         </div>
     )
