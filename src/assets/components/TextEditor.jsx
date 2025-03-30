@@ -8,6 +8,7 @@ export default function TextEditor({ body, setBody }) {
     readonly: false, 
     placeholder: 'Write down your dream',
     buttons: 'bold,italic,underline,font,fontsize,|,paragraph,cut,copy,paste,indent,outdent,undo,redo',
+    disablePlugins: 'add-new-line'
   }), []);
 
   return (
@@ -17,6 +18,7 @@ export default function TextEditor({ body, setBody }) {
       config={config}
       tabIndex={1}
       onChange={newContent => setBody(newContent)} 
+
     />
   );
 };

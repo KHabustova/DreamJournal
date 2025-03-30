@@ -1,12 +1,15 @@
-import { Listbox } from '@headlessui/react';
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { Link } from 'react-router';
+
 
 function ReturnButton(){
     return (
-        <div>
-            <Link to="/" className="outline p-2">Back
+        <div className="flex justify-center">
+            <Link to="/" className="inline-flex items-center space-x-2 bg-gray-400 hover:bg-gray-500 text-white px-6 py-2 rounded-lg cursor-pointer">
+                <IoArrowBackCircleOutline className="text-xl"/>
+                <span className='text-bold'>Return</span>
             </Link>
-        </div>
+        </div>    
     )
 }
 export default ReturnButton;

@@ -3,7 +3,7 @@ import APIRequestsHandler from "../services/APIRequestsHandler";
 import MoodDropdown from "./MoodDropdown";
 import ReturnButton from "./ReturnButton";
 import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import TextEditor from "./TextEditor";
 
 function UpdateEntryPage() {
@@ -15,7 +15,6 @@ function UpdateEntryPage() {
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
-
 
     useEffect(() => {
         async function fetchEntry() {
@@ -35,12 +34,10 @@ function UpdateEntryPage() {
 
     const updateEntry = (e) => {
         e.preventDefault();
-        const trimmedTitle = title.trim();
-        const trimmedBody = body.trim();
 
-        if (!trimmedTitle || !trimmedBody) return;
+        if (title.trim().length === 0 || body.trim().length === 0) return;
 
-        const entryUpdated = { title: trimmedTitle, body: trimmedBody, mood };
+        const entryUpdated = { title: title.trim(), body: body, mood };
 
         APIRequestsHandler.updateEntry(id, entryUpdated)
             .then(() => {
@@ -56,39 +53,45 @@ function UpdateEntryPage() {
     };
 
     if (loading) {
-        return <h1>Loading...</h1>;
+        return <h1 className="text-center text-xl font-bold">Loading...</h1>;
     }
 
     return (
-        <div>
-            <ReturnButton className="m-4" />
-            <h1>Update Entry</h1>
-
-            <form onSubmit={updateEntry}>
-                <div className="form-group">
-                    <label htmlFor="title">Title</label>
+        <div className="py-12 flex flex-col gap-6 border border-gray-200 rounded-2xl max-w-4xl mx-auto bg-white shadow-md px-36">
+           
+            <h1 className="text-2xl text-violet-600 font-bold">Update Entry</h1>
+            <hr />
+            <form onSubmit={updateEntry} className="space-y-6">
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="title" className="font-medium">Title</label>
                     <input
                         id="title"
                         type="text"
                         placeholder="Enter title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-violet-500"
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="body">Content</label>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="body" className="font-medium">Content</label>
                     <TextEditor body={body} setBody={setBody} />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="mood">Mood</label>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="mood" className="font-medium">Mood</label>
                     <MoodDropdown id="mood" selectedMood={mood} setSelectedMood={setMood} />
                 </div>
                 <hr />
-                <input type="submit" value="Update" disabled={!title.trim() || !body.trim()} />
+                <input
+                    type="submit"
+                    value="Update"
+                    disabled={!title.trim() || !body.trim()}
+                    className="bg-violet-400 hover:bg-violet-500 text-white px-4 py-2 rounded-lg cursor-pointer disabled:bg-gray-300 disabled:cursor-not-allowed"
+                />
             </form>
-
-            {success && <h2>Updated Successfully!</h2>}
-            {failure && <h2>Failed to update. Please try again.</h2>}
+            <ReturnButton className="mt-4" />
+            {success && <h2 className="text-green-600">Updated Successfully!</h2>}
+            {failure && <h2 className="text-red-600">Failed to update. Please try again.</h2>}
         </div>
     );
 }
