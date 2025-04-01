@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 
+/**
+ * Renders button that links user to the NewEntryPage component. 
+ * @component
+ * @returns {JSX.Element} The rendered NewEntryButton component.
+ */
 function NewEntryButton() {
     return (
         <div className="flex justify-start">

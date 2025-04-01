@@ -5,25 +5,52 @@ import ReturnButton from "./ReturnButton";
 import { useNavigate } from 'react-router-dom';
 import TextEditor from "./TextEditor";
 
+/**
+ * Allows users to create a new journal entry.
+ * @component
+ * @returns {JSX.Element} The rendered NewEntryPage component.
+ */
 function NewEntryPage() {
+    // State to store the title of the entry
     const [title, setTitle] = useState("");
+
+    // State to store the body content of the entry
     const [body, setBody] = useState("");
+
+    // State to store the selected mood of the entry
     const [mood, setMood] = useState("NEUTRAL");
+
+    // State to track whether the entry was successfully created
     const [success, setSuccess] = useState(false);
+
+    // State to track whether the entry creation failed
     const [failure, setFailure] = useState(false);
+
+    // Hook to navigate to other pages
     const navigate = useNavigate();
 
+    /**
+     * Handles the form submission to create a new journal entry.
+     * Validates the input and sends the data to the backend.
+     * 
+     * @param {Event} e - The form submission event.
+     */
     const saveEntry = (e) => {
         e.preventDefault();
+
+        // Create an entry object with the trimmed title, body, and selected mood
         const entry = { title: title.trim(), body: body, mood };
 
+        // Send the entry data to the backend
         APIRequestsHandler.createEntry(entry)
             .then(() => {
+                // If successful, show success message and redirect to the home page
                 setSuccess(true);
                 setFailure(false);
                 setTimeout(() => navigate("/"), 1000);
             })
             .catch((error) => {
+                // If an error occurs, show failure message
                 console.error("Error creating entry:", error);
                 setFailure(true);
                 setSuccess(false);

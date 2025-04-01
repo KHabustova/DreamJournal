@@ -6,16 +6,40 @@ import { useParams } from "react-router";
 import { useNavigate } from "react-router-dom";
 import TextEditor from "./TextEditor";
 
+/**
+ * Facilitates updating an existing journal entry.
+ * It fetches the entry data by ID, pre-fills the form, and handles the update process.
+ * @component
+ * @returns {JSX.Element} The rendered UpdateEntryPage component.
+ */
 function UpdateEntryPage() {
+    // State to store the title of the entry
     const [title, setTitle] = useState("");
+
+    // State to store the body content of the entry
     const [body, setBody] = useState("");
+
+    // State to store the selected mood of the entry(defaults to Neutral in case Mood list fails to fetch)
     const [mood, setMood] = useState("NEUTRAL");
+
+    // State to track whether the update was successful
     const [success, setSuccess] = useState(false);
+
+    // State to track whether the update failed
     const [failure, setFailure] = useState(false);
+
+    // State to track whether the entry is still loading
     const [loading, setLoading] = useState(true);
+
+    // Extract the entry ID from the URL parameters
     const { id } = useParams();
+
+    // Hook to navigate to other pages
     const navigate = useNavigate();
 
+    /**
+     * Fetches the journal entry by its ID.
+     */
     useEffect(() => {
         async function fetchEntry() {
             try {
@@ -32,6 +56,12 @@ function UpdateEntryPage() {
         fetchEntry();
     }, [id]);
 
+    /**
+     * Handles the form submission to update the journal entry.
+     * Validates the input and sends the updated data to the backend.
+     * 
+     * @param {Event} e - The form submission event.
+     */
     const updateEntry = (e) => {
         e.preventDefault();
 
@@ -52,13 +82,14 @@ function UpdateEntryPage() {
             });
     };
 
+    // Render a loading message while the entry is being fetched
     if (loading) {
         return <h1 className="text-center text-xl font-bold">Loading...</h1>;
     }
 
+    // Render the form to update the journal entry
     return (
         <div className="py-12 flex flex-col gap-6 border border-gray-200 rounded-2xl max-w-4xl mx-auto bg-white shadow-md px-36">
-           
             <h1 className="text-2xl text-violet-600 font-bold">Update Entry</h1>
             <hr />
             <form onSubmit={updateEntry} className="space-y-6">

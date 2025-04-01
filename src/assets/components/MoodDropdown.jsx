@@ -2,11 +2,28 @@ import React, { useState, useEffect } from "react";
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 import APIRequestsHandler from "../services/APIRequestsHandler";
 
+/**
+ * A dropdown component for selecting a mood. It fetches available moods from the backend
+ * and displays them in a dropdown menu. Uses HeadlessUI library.
+ * @component
+ * @param {string} selectedMood - The currently selected mood.
+ * @param {Function} setSelectedMood - Function to update the selected mood.
+ * @returns {JSX.Element} The rendered MoodDropdown component.
+ */
 function MoodDropdown({ selectedMood, setSelectedMood }) {
+    // State to store the list of all available moods
     const [allMoods, setAllMoods] = useState([]);
+
+    // State to track whether the moods are still loading
     const [isLoading, setIsLoading] = useState(true);
+
+    // State to track whether there was an error fetching moods
     const [hasError, setHasError] = useState(false);
 
+    /**
+     * Fetches the list of moods from the backend.
+     * Updates the `allMoods` state on success or sets the `hasError` state on failure.
+     */
     useEffect(() => {
         async function loadMoods() {
             try {
@@ -14,7 +31,7 @@ function MoodDropdown({ selectedMood, setSelectedMood }) {
                 setAllMoods(fetchedMoods);
                 setIsLoading(false);
             } catch (error) {
-                console.log("Failed to fetch moods!", error);
+                console.error("Failed to fetch moods!", error);
                 setIsLoading(false);
                 setHasError(true);
             }
@@ -22,6 +39,7 @@ function MoodDropdown({ selectedMood, setSelectedMood }) {
         loadMoods();
     }, []);
 
+    // Render a disabled dropdown if moods are still loading or an error occurred
     if (isLoading || hasError) {
         return (
             <Listbox value="NEUTRAL" onChange={setSelectedMood} disabled={true}>
@@ -32,9 +50,11 @@ function MoodDropdown({ selectedMood, setSelectedMood }) {
         );
     }
 
+    // Render the dropdown with the list of moods
     return (
         <div className="relative w-full">
             <Listbox value={selectedMood} onChange={setSelectedMood}>
+
                 <ListboxButton className="text-center w-full bg-white border border-gray-300 rounded-lg px-4 py-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-violet-500">
                     {selectedMood || "Select a mood"}
                 </ListboxButton>

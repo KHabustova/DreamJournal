@@ -4,7 +4,13 @@ import NewEntryButton from "./NewEntryButton";
 import { Link } from "react-router-dom";
 import Pagination from "./Pagination";
 
-
+/**
+ * This component displays a paginated list of journal entries.
+ * It allows users to view, edit, or delete entries and provides a button to create new entries.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered EntryList component.
+ */
 function EntryList() {
     const ENTRIES_PER_PAGE = 30;
     const [entries, setEntries] = useState([]);
@@ -14,10 +20,14 @@ function EntryList() {
     const [deleteFailure, setDeleteFailure] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const pageAmount = Math.ceil(entries.length/ENTRIES_PER_PAGE);
+    const pageAmount = Math.ceil(entries.length / ENTRIES_PER_PAGE);
     const endIndex = currentPage * ENTRIES_PER_PAGE;
     const firstRecordIndex = endIndex - ENTRIES_PER_PAGE;
 
+    /**
+     * Fetches all journal entries from the backend when the component mounts
+     * or when the pagination indices change.
+     */
     useEffect(() => {
         async function loadEntries() {
             try {
@@ -33,6 +43,12 @@ function EntryList() {
         loadEntries();
     }, [firstRecordIndex, endIndex]);
 
+    /**
+     * Deletes a journal entry by its ID.
+     * Updates the entries state on success or shows an error message on failure.
+     * 
+     * @param {string} entryID - The ID of the entry to delete.
+     */
     const deleteEntry = async (entryID) => {
         try {
             await APIRequestsHandler.deleteEntry(entryID);
@@ -47,11 +63,16 @@ function EntryList() {
             setTimeout(() => setDeleteFailure(false), 3000);
         }
     };
-
+    /**
+     * Renders loading screen while waiting for the data.
+     */
     if (isLoading) {
         return <div className="text-center py-4">Loading...</div>;
     }
 
+    /**
+     * Renders page if no entry had been found.
+     */
     if (entries.length === 0) {
         return (
             <div className="text-center py-4">
@@ -63,7 +84,6 @@ function EntryList() {
 
     return (
         <div className="py-12 flex flex-col gap-6 border border-gray-200 rounded-2xl w-full max-w-4xl mx-auto bg-white shadow-md px-36">
-          
             <div>
                 <h1 className="font-bold text-4xl text-violet-600 mb-6">Dream Journal</h1>
             </div>
@@ -82,7 +102,6 @@ function EntryList() {
             </div>
 
             <div className="flex flex-col gap-6">
-
                 <ul className="space-y-6">
                     {currentEntries.map((entry) => (
                         <div key={entry.id} className="flex justify-between border-b pb-4">
@@ -109,12 +128,12 @@ function EntryList() {
                         </div>
                     ))}
                 </ul>
+            </div>
 
-            </div>
             <div className="mb-4">
-                    <NewEntryButton />
+                <NewEntryButton />
             </div>
-            <Pagination pageAmount={pageAmount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+            <Pagination pageAmount={pageAmount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     );
 }

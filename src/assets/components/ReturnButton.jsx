@@ -1,7 +1,11 @@
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { Link } from 'react-router';
 
-
+/**
+ * Renders button that returns user back to the EntryList.
+ * @component
+ * @returns {JSX.Element} The rendered ReturnButton component.
+ */
 function ReturnButton(){
     return (
         <div className="flex justify-center">
