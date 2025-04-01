@@ -12,16 +12,34 @@ import Pagination from "./Pagination";
  * @returns {JSX.Element} The rendered EntryList component.
  */
 function EntryList() {
+    // Number of entries displayed per page
     const ENTRIES_PER_PAGE = 30;
+
+    // State to store all journal entries fetched from the backend
     const [entries, setEntries] = useState([]);
+
+    // State to store the entries displayed on the current page
     const [currentEntries, setCurrentEntries] = useState([]);
+
+    // State to track whether the entries are still loading
     const [isLoading, setIsLoading] = useState(true);
+
+    // State to track whether an entry was successfully deleted
     const [deleteSuccess, setDeleteSuccess] = useState(false);
+
+    // State to track whether deleting an entry failed
     const [deleteFailure, setDeleteFailure] = useState(false);
+
+    // State to track the currently active page
     const [currentPage, setCurrentPage] = useState(1);
 
+    // Calculate the total number of pages based on the number of entries
     const pageAmount = Math.ceil(entries.length / ENTRIES_PER_PAGE);
+
+    // Calculate the index of the last entry on the current page
     const endIndex = currentPage * ENTRIES_PER_PAGE;
+
+    // Calculate the index of the first entry on the current page
     const firstRecordIndex = endIndex - ENTRIES_PER_PAGE;
 
     /**

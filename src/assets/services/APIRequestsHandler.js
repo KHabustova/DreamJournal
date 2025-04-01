@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Base API URL for the backend. 
-const API_URL = "http://localhost:8009";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // URL for fetching moods
-const MOOD_URL = "http://localhost:8009/api/moods";
+const MOOD_URL = `${API_URL}/api/moods`;
 
 /**
  * A service object for handling REST API requests. Uses AXIOS.
