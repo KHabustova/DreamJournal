@@ -20,13 +20,14 @@ public class WebConfig {
     @Value("${frontend.url}")
     private String frontendUrl;
 
+    @Bean
     public WebMvcConfigurer webConfig(){
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 WebMvcConfigurer.super.addCorsMappings(registry);
                 registry.addMapping("/**")
-                        .allowedOrigins("*")
+                        .allowedOrigins(frontendUrl)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*");
             }
